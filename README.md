@@ -26,7 +26,7 @@ The video is summarized here:
 - To make the game easier to win (without 17 matches), pressing `btnL` will be a cheat switch that will load the switches into the LEDs (or actually the shift register holding the values of the LEDs).
 
 
-CSE100 - Lab 4
-Copyright ©2024 Martine Schlag and Ethan Sifferman.
-All rights reserved. **Distribution Prohibited.**
+- CSE100 - Lab 4
+- Copyright ©2024 Martine Schlag and Ethan Sifferman.
+- All rights reserved. **Distribution Prohibited.**
 
