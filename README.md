@@ -25,10 +25,8 @@ The video is summarized here:
 - If all 16 LEDs are lit, and the target number was matched, then the game has been won. After the digits flash for 4 seconds, all 16 LEDs flash, and no button, except `btnR` will have an effect.
 - To make the game easier to win (without 17 matches), pressing `btnL` will be a cheat switch that will load the switches into the LEDs (or actually the shift register holding the values of the LEDs).
 
----
 
 CSE100 - Lab 4
 Copyright ©2024 Martine Schlag and Ethan Sifferman.
 All rights reserved. **Distribution Prohibited.**
 
----
