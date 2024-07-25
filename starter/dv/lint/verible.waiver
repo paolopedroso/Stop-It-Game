@@ -1,0 +1,5 @@
+# Copyright (c) 2024 Ethan Sifferman.
+# All rights reserved. Distribution Prohibited.
+
+waive --rule=port-name-suffix --location="synth/basys3/basys3.sv"
+waive --rule=port-name-suffix --location="rtl/basys3/hex7seg.sv"

@@ -1,0 +1,28 @@
+# Copyright (c) 2024 Ethan Sifferman.
+# All rights reserved. Distribution Prohibited.
+
+always-comb
+always-comb-blocking
+always-ff-non-blocking
+case-missing-default
+enum-name-style
+explicit-parameter-storage-type
+generate-label
+generate-label-prefix
+interface-name-style
+line-length
+macro-name-style
+module-filename
+module-port
+no-tabs
+no-trailing-spaces
+one-module-per-file
+package-filename
+parameter-name-style=localparam_style
+parameter-type-name-style
+port-name-suffix
+posix-eof
+proper-parameter-declaration
+struct-union-name-style
+truncated-numeric-literal
+typedef-enums
