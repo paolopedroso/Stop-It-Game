@@ -59,7 +59,10 @@ end
 
 always @(posedge clk_i) if (rst_ni) begin
     if (shift_i && !load_i && !off_i) begin
+        /* verilator lint_save */
+        /* verilator lint_off UNUSEDSIGNAL */
         logic [15:0] past_leds = led_shifter.leds_o;
+        /* verilator lint_restore */
         @(posedge clk_i);
         if (!off_i) begin
             assert(led_shifter.leds_o == {past_leds[14:0],1'b1})

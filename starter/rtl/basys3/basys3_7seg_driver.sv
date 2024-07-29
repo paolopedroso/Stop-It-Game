@@ -29,7 +29,7 @@ always_comb begin
     end
 end
 
-always_ff @(posedge clk_1k_i or negedge rst_ni) begin
+always_ff @(posedge clk_1k_i) begin
     if (!rst_ni) begin
         count_q <= 2'b00;
     end else begin
@@ -42,17 +42,25 @@ assign count_o = count_q;
 logic [3:0] mux_o;
 logic [3:0] digit0_o, digit1_o, digit2_o, digit3_o;
 
-always_ff @(posedge clk_1k_i or negedge rst_ni) begin
+always_ff @(posedge clk_1k_i) begin
     if (!rst_ni) begin
         digit0_o <= 4'b0000;
         digit1_o <= 4'b0000;
         digit2_o <= 4'b0000;
         digit3_o <= 4'b0000;
+    end else if (digit0_en_i) begin
+        digit0_o <= digit0_i;
+    end else if (digit1_en_i) begin
+        digit1_o <= digit1_i;
+    end else if (digit2_en_i) begin
+        digit2_o <= digit2_i;
+    end else if (digit3_en_i) begin
+        digit3_o <= digit3_i;
     end else begin
-        if (digit0_en_i) digit0_o <= digit0_i;
-        if (digit1_en_i) digit1_o <= digit1_i;
-        if (digit2_en_i) digit2_o <= digit2_i;
-        if (digit3_en_i) digit3_o <= digit3_i;
+        digit0_o <= 4'b0000;
+        digit1_o <= 4'b0000;
+        digit2_o <= 4'b0000;
+        digit3_o <= 4'b0000;
     end
 end
 

@@ -12,8 +12,10 @@ logic        go_i;
 logic        stop_i;
 logic        load_i;
 logic [15:0] switches_i;
-logic [15:0] leds_o;
 
+/* verilator lint_save */
+/* verilator lint_off UNUSEDSIGNAL */
+logic [15:0] leds_o;
 logic        digit0_en_o;
 logic [3:0]  digit0_o;
 logic        digit1_en_o;
@@ -22,6 +24,7 @@ logic        digit2_en_o;
 logic [3:0]  digit2_o;
 logic        digit3_en_o;
 logic [3:0]  digit3_o;
+/* verilator lint_restore */
 
 wire state_t stop_it_state = state_t'(stop_it.state_q);
 
@@ -95,9 +98,9 @@ always @(posedge clk_4_i) if (rst_ni) begin
     else #1 $error("Expected WON state after 17 correct answers. Instead in state ", stop_it_state.name());
 
     repeat(20) @(negedge clk_4_i);
-    rst_ni = 0;
+    rst_ni <= 0;
     repeat(2) @(negedge clk_4_i);
-    rst_ni = 1;
+    rst_ni <= 1;
 end
 
 wire wrong_stop_received = valid_stop_received && !digits_match;
@@ -138,6 +141,7 @@ initial begin : sim
     go_i = 0;
     stop_i = 0;
     load_i = 0;
+    switches_i = '0;
 
     rst_ni = 0;
     @(negedge clk_4_i);
