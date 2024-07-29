@@ -12,7 +12,7 @@ logic [4:0] count0_q, count0_d;
 
 always_comb begin
     case(en_i)
-    1'b0: count0_d = 5'h1f;
+    1'b0: count0_d = count0_q;
     1'b1: count0_d = count0_q - 1;
     default;
     endcase
