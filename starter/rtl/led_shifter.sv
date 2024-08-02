@@ -16,20 +16,20 @@ module led_shifter (
 
 logic [15:0] leds_d, leds_q;
 
+// Shift 1 (+1 point)
 always_comb begin
-    if (shift_i == 1'b1) begin
-        leds_d = {leds_q[14:0], 1'b1};
-    end else if (load_i == 1'b1) begin
+    leds_d = {leds_q[14:0], 1'b1};
+    if (load_i == 1'b1) begin
         leds_d = switches_i;
-    end else begin
-        leds_d = leds_q;
     end
 end
 
 always_ff @(posedge clk_i) begin
     if (!rst_ni) begin
         leds_q <= 0;
-    end else begin
+    end else if (load_i) begin
+        leds_q <= leds_d;
+    end else if (shift_i) begin
         leds_q <= leds_d;
     end
 end
@@ -41,17 +41,5 @@ always_comb begin
         leds_o = leds_q;
     end
 end
-
-// always_ff @(posedge clk_i) begin
-//     if (!rst_ni) begin
-//         leds_o <= 0;
-//     end else if (shift_i == 1'b1) begin
-//         leds_o <= {leds_o[14:0], 1'b1};
-//     end else if (load_i == 1'b1) begin
-//         leds_o <= switches_i;
-//     end else if (off_i == 1'b1) begin
-//         leds_o <= 0;
-//     end
-// end
 
 endmodule

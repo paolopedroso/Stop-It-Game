@@ -8,22 +8,16 @@ module game_counter (
     output logic [4:0] count_o
 );
 
-logic [4:0] count0_q, count0_d;
-
-always_comb begin
-    case(en_i)
-    1'b0: count0_d = count0_q;
-    1'b1: count0_d = count0_q - 1;
-    default;
-    endcase
-end
+logic [4:0] count0_q;
 
 
 always_ff @(posedge clk_4_i) begin
     if (!rst_ni) begin
         count0_q <= 5'h1f;
+    end else if (en_i) begin
+        count0_q <= count0_q - 1;
     end else begin
-        count0_q <= count0_d;
+        count0_q <= count0_q;
     end
 end
 

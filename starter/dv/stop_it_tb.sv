@@ -58,6 +58,11 @@ end
 
 localparam int NUM_TESTS = 2500;
 
+function automatic string format_time(time t);
+    $timeformat(0, 2, "s", 1);
+    return $sformatf("%0t", t);
+endfunction
+
 wire valid_go_received = rst_ni && (stop_it_state == WAITING_TO_START) && go_i;
 always @(posedge valid_go_received) if (rst_ni) begin
     time go_time, decrementing_time, wait_time;
@@ -70,7 +75,7 @@ always @(posedge valid_go_received) if (rst_ni) begin
     wait_time = decrementing_time-go_time;
 
     if (rst_ni) assert(wait_time == 2s)
-    else #1 $error("Expected 2 second pause after go. Instead paused %t", wait_time);
+    else #1 $error("Expected 2 second pause after go. Instead paused ", format_time(wait_time));
 end
 
 wire valid_stop_received = rst_ni && (stop_it_state == DECREMENTING) && stop_i;
@@ -88,17 +93,30 @@ always @(posedge correct_stop_received) if (rst_ni) begin
     wait_time = newround_time-stop_time;
 
     if (rst_ni) assert(wait_time == 4s)
-    else #1 $error("Expected 4 second pause after correct answer. Instead paused %t", wait_time);
+    else #1 $error("Expected 4 second pause after correct answer. Instead paused ", format_time(wait_time));
+end
+
+int num_correct_stops_received;
+always @(posedge clk_4_i) if (rst_ni) begin
+    @(posedge correct_stop_received);
+    num_correct_stops_received <= num_correct_stops_received+1;
 end
 
 always @(posedge clk_4_i) if (rst_ni) begin
-    repeat(17) @(posedge correct_stop_received);
+    @(posedge (num_correct_stops_received == 17));
     repeat(17) @(negedge clk_4_i);
     assert(stop_it_state == WON)
     else #1 $error("Expected WON state after 17 correct answers. Instead in state ", stop_it_state.name());
+end
+
+always @(posedge clk_4_i) if (rst_ni) begin
+    @(posedge (stop_it_state == WON));
+    assert(num_correct_stops_received == 17)
+    else #1 $error("Expected WON state after 17 correct answers. Instead WON after %0d correct answers", num_correct_stops_received);
 
     repeat(20) @(negedge clk_4_i);
     rst_ni <= 0;
+    num_correct_stops_received <= 0;
     repeat(2) @(negedge clk_4_i);
     rst_ni <= 1;
 end
@@ -115,7 +133,7 @@ always @(posedge wrong_stop_received) if (rst_ni) begin
     wait_time = (newround_time - stop_time);
 
     if (rst_ni) assert(wait_time == 4s)
-    else #1 $error("Expected 4 second pause after wong answer. Instead paused %t", wait_time);
+    else #1 $error("Expected 4 second pause after wrong answer. Instead paused ", format_time(wait_time));
 end
 
 always @(posedge clk_4_i) begin
