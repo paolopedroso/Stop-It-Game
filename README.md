@@ -44,27 +44,31 @@ The video is summarized here:
 
 ### Random Number Generator
 
-Created random number generator in `rtl/lfsr.sv` using a Linear Feedback Shift Register (LFSR) to generate a pseudorandom 8-bit binary number. Uses 5 bits from the LFSR as the target number.
+- Created random number generator in `rtl/lfsr.sv` using a Linear Feedback Shift Register (LFSR) to generate a pseudorandom 8-bit binary number.
+- Uses 5 bits from the LFSR as the target number.
 
 ### Game Counter
 
-Created Game Counter in `rtl/game_counter.sv`. This counter decrements on the 7-segment display and initializes to `1f` when `rst_ni` is active.
+- Created Game Counter in `rtl/game_counter.sv`.
+- This counter decrements on the 7-segment display and initializes to `1f` when `rst_ni` is active.
 
 ### Time Counter
 
-Created Time Counter in `rtl/time_counter.sv`. This counter tracks quarter-second increments and initializes to `0` when `rst_ni` is active.
+- Created Time Counter in `rtl/time_counter.sv`.
+- This counter tracks quarter-second increments and initializes to `0` when `rst_ni` is active.
 
 ### 7 Segment Display
 
-Created 7 Segment Display driver in `rtl/basys3/basys3_7seg_driver.sv`. It will display the target number and the Game Counter, making them flash based on the game state.
+- Created 7 Segment Display driver in `rtl/basys3/basys3_7seg_driver.sv`.
+- It will display the target number and the Game Counter, making them flash based on the game state.
 
 ### LED Display
 
-Created LED display in `rtl/led_shifter.sv` using a 16-bit shift register controlled by the `shift_i` signal.
+- Created LED display in `rtl/led_shifter.sv` using a 16-bit shift register controlled by the `shift_i` signal.
 
 ### Stop It State Machine
 
-Implemented the state machine in `rtl/stop_it.sv`.
+- Implemented the state machine in `rtl/stop_it.sv`.
 
 ## Project
 
