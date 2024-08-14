@@ -11,8 +11,7 @@
    5. [7 Segment Display](#7-segment-display)
    6. [LED Display](#led-display)
    7. [Stop It State Machine](#stop-it-state-machine)
-3. [Write-Up](#write-up)
-4. [How to Run](#how-to-run)
+3. [How to Run](#how-to-run)
 
 
 ### Overview
